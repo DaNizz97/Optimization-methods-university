@@ -9,25 +9,28 @@ from funcion import (
     print_information
 )
 
-
+#Функция, которая рассчитывает и возвращает новые х1 и х2
 def calculate_x(a, b, epsilon):
     return ((a+b)+epsilon)/Decimal(2), ((a+b)-epsilon)/Decimal(2)
 
-
-n = 0
+#Счетчик количества итераций
+itecCounter = 0
 while b - a > epsilon+epsilon/100000:
+    #Получение новых значений х1 и х2
     x1, x2 = calculate_x(a, b, epsilon)
-    n += 1
+    itecCounter += 1
 
+    #Получение значений функций в точках х1 и х2
     y_x1 = calculate_function(x1)
     y_x2 = calculate_function(x2)
 
+    #Сохранение старых границ отрезка и получение новых
     b_previous, a_previous = b, a
-
     a, b = find_a_b(a, b, x1, x2, y_x1, y_x2)
 
+    #Вывод информации на экран
     context = (
-        str(n).ljust(4, ' '),
+        str(itecCounter).ljust(4, ' '),
         a_previous, b_previous,
         a, b,
         (b_previous-a_previous)/(b - a),
@@ -38,4 +41,4 @@ while b - a > epsilon+epsilon/100000:
     print_information(context)
 
 
-print("%.5f %.5f %s" % (a, b, n))
+print("%.5f %.5f %s" % (a, b, itecCounter))
